@@ -8,7 +8,7 @@
  */
 int _printf(const char *format, ...)
 {
-	int x = 0, sum = 0;
+	int x = 0, count = 0;
 	va_list valist;
 
 	va_start(valist, format);
@@ -20,22 +20,22 @@ int _printf(const char *format, ...)
 			switch (format[x])
 			{
 				case 'c':
-					sum += _putchar(va_arg(valist, int));
+					count += putchar(va_arg(valist, int));
 					break;
 				case 's':
-					sum += puts(va_arg(valist, char *));
+					count += puts(va_arg(valist, char *));
 					break;
 				case '%':
-					sum += _putchar('%');
+					count += putchar('%');
 					break;
 				default:
 					break;
 			}
 		}
 		else
-			sum += _putchar(format[x]);
+			count += putchar(format[x]);
 		x++;
 	}
 	va_end(valist);
-	return (sum);
+	return (count);
 }
