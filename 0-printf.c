@@ -9,9 +9,9 @@
 int _printf(const char *format, ...)
 {
 	int x = 0, count = 0;
-	va_list valist;
+	va_list args;
 
-	va_start(valist, format);
+	va_start(args, format);
 	while (format && format[x])
 	{
 		if (format[x] == '%')
@@ -20,10 +20,10 @@ int _printf(const char *format, ...)
 			switch (format[x])
 			{
 				case 'c':
-					count += putchar(va_arg(valist, int));
+					count += putchar(va_arg(args, int));
 					break;
 				case 's':
-					count += puts(va_arg(valist, char *));
+					count += puts(va_arg(args, char *));
 					break;
 				case '%':
 					count += putchar('%');
@@ -36,6 +36,6 @@ int _printf(const char *format, ...)
 			count += putchar(format[x]);
 		x++;
 	}
-	va_end(valist);
+	va_end(args);
 	return (count);
 }
