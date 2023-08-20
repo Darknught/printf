@@ -1,4 +1,4 @@
-My first project on printf
+Our first project on printf
 
 0X11. C - print
 
