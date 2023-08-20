@@ -3,6 +3,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+#define NULL ((void *)0)
 
 int _printf(const char *format, ...);
 
