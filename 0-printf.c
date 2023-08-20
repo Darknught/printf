@@ -38,6 +38,8 @@ int _printf(const char *format, ...)
 	va_start(args, format);
 	while (format && format[x])
 	{
+		if (format[x] == '\0')
+			return (x);
 		if (format[x] == '%')
 		{
 			x++;
