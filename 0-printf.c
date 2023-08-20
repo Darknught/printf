@@ -1,6 +1,10 @@
 #include "main.h"
 #include <stdio.h>
 #include <stdarg.h>
+
+int print_string(va_list types, ...);
+int print_char(va_list types, ...);
+int print_per(va_list types, ...);
 /**
  * _printf - produces output according to a format
  * @format: character string

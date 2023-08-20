@@ -8,5 +8,7 @@ int _printf(const char *format, ...);
 int _putchar(char c);
 
 int print_string(va_list types, ...);
+int print_char(va_list types, ...);
+int print_per(va_list types, ...);
 
 #endif
