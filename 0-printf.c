@@ -2,9 +2,28 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-int print_string(va_list types, ...);
-int print_char(va_list types, ...);
-int print_per(va_list types, ...);
+/**
+ * print_string - prints a string
+ * @str: string to print
+ * Return: character
+ */
+int print_string(char *str)
+{
+	int i;
+
+	i = 0;
+
+	if (str == NULL)
+		str = "(null)";
+
+	while (str[i] != '\0')
+	{
+		_putchar(str[i]);
+		i++;
+	}
+	return (i);
+}
+
 /**
  * _printf - produces output according to a format
  * @format: character string
@@ -14,6 +33,7 @@ int _printf(const char *format, ...)
 {
 	int x = 0, count = 0;
 	va_list args;
+	char *str;
 
 	va_start(args, format);
 	while (format && format[x])
@@ -24,20 +44,21 @@ int _printf(const char *format, ...)
 			switch (format[x])
 			{
 				case 'c':
-					count += putchar(va_arg(args, int));
+					count += _putchar(va_arg(args, int));
 					break;
 				case 's':
-					count += puts(va_arg(args, char *));
+					str = va_arg(args, char *);
+					count += print_string(str);
 					break;
 				case '%':
-					count += putchar('%');
+					count += _putchar('%');
 					break;
 				default:
 					break;
 			}
 		}
 		else
-			count += putchar(format[x]);
+			count += _putchar(format[x]);
 		x++;
 	}
 	va_end(args);
