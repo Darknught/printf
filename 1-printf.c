@@ -1,66 +1,81 @@
 #include "main.h"
+
+int print_number(int num);
+
 /**
- * print_number - prints an integer
- * @num: input integer parameter
- * Return: 0 (success)
- */
+* print_number - prints an integer
+* @num: input integer parameter
+* Return: 0 (success)
+*/
 int print_number(int num)
 {
-	int i = num;
+	unsigned int ui;
+	int dig, j, num_dig = 0, i = 0;
+	char buffer[20];
 
 	if (num < 0)
 	{
-		_putchar(45);
-		i = -1;
+		_putchar('-');
+		ui = -num;
 	}
-	if (i / 10)
+	else
 	{
-		print_number(i / 10);
+		ui = num;
 	}
-	_putchar(i % 10 + '0');
-	return (0);
+	if (ui == 0)
+	{
+		_putchar('0');
+		return (1);
+	}
+	while (ui != 0)
+	{
+		dig = ui % 10;
+		buffer[i] = dig + '0';
+		ui /= 10;
+		i++;
+		num_dig++;
+	}
+	for (j = i - 1; j >= 0; j--)
+	{
+		_putchar(buffer[j]);
+	}
+	return (num_dig);
 }
-
 /**
  * _printf - produces output according to format
- * @format: character string
- * Return: 0 (success)
+ * @format: character format
+ * Return: outputted character
  */
 int _printf(const char *format, ...)
 {
-	int n = 0, count = 0;
-	va_list num;
+	va_list agg;
+	int number = 0;
+	unsigned int x;
 
-	va_start(num, format);
-
-	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
-		return (-1);
-	while (format && format[n])
+	va_start(agg, format);
+	while (*format != '\0')
 	{
-		if (format[n] == '\0')
-			return (n);
-		if (format[n] == '%')
+		if (*format == '%')
 		{
-			n++;
-			switch (format[n])
+			format++;
+			if (*format == '%')
 			{
-				case 'd':
-				case 'i':
-					count += print_number(va_arg(num, int));
-					break;
-				default:
-					_putchar(format[n]);
-					count += 1;
-					break;
+				_putchar('%');
+				number++;
+			}
+			else if (*format == 'd' || *format == 'i')
+			{
+				x = va_arg(agg, int);
+				number += print_number(x);
 			}
 		}
 		else
 		{
-			_putchar(format[n]);
-			count += 1;
+			_putchar(*format);
+			number++;
 		}
-		n++;
+		format++;
 	}
-	va_end(num);
-	return (count);
+	va_end(agg);
+	return (number);
 }
