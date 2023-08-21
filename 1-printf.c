@@ -1,4 +1,7 @@
 #include "main.h"
+
+int _printf(const char *format, ...);
+
 /**
  * print_string - prints a string
  * @str: string to print
@@ -93,8 +96,8 @@ int _printf(const char *format, ...)
 					break;
 				case 'd':
 				case 'i':
-				        count += print_number(va_arg(args, int));
-				        break;
+					count += print_number(va_arg(args, int));
+					break;
 				default:
 					_putchar('%');
 					_putchar(format[x]);
