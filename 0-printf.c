@@ -9,9 +9,7 @@
  */
 int print_string(char *str)
 {
-	int i;
-
-	i = 0;
+	int i = 0;
 
 	if (str == NULL)
 		str = "(null)";
@@ -58,6 +56,9 @@ int _printf(const char *format, ...)
 					count += _putchar('%');
 					break;
 				default:
+					_putchar('%');
+					_putchar(format[x]);
+					count += 2;
 					break;
 			}
 		}
