@@ -12,5 +12,6 @@ int _putchar(char c);
 
 /* FUNCTION PROTOTYPES */
 int print_string(char *str);
+int print_integer(int num);
 
 #endif
