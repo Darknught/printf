@@ -68,6 +68,12 @@ int _printf(const char *format, ...)
 				x = va_arg(agg, int);
 				number += print_number(x);
 			}
+			else
+			{
+				_putchar('%');
+				_putchar(format[x]);
+				number += 2;
+			}
 		}
 		else
 		{
