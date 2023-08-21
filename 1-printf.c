@@ -1,6 +1,23 @@
 #include "main.h"
+/**
+ * print_string - prints a string
+ * @str: string to print
+ * Return: character
+ */
+int print_string(char *str)
+{
+	int i = 0;
 
-int print_number(int num);
+	if (str == NULL)
+		str = "(null)";
+
+	while (str[i] != '\0')
+	{
+		_putchar(str[i]);
+		i++;
+	}
+	return (i);
+}
 
 /**
 * print_number - prints an integer
