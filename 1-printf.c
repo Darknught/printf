@@ -48,40 +48,47 @@ int print_number(int num)
  */
 int _printf(const char *format, ...)
 {
-	va_list agg;
-	int number = 0;
-	unsigned int x;
+	int x = 0, count = 0;
+	va_list args;
+	char *str;
 
-	va_start(agg, format);
-	while (*format != '\0')
+	va_start(args, format);
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
+	while (format && format[x])
 	{
-		if (*format == '%')
+		if (format[x] == '\0')
+			return (x);
+		if (format[x] == '%')
 		{
-			format++;
-			if (*format == '%')
+			x++;
+			switch (format[x])
 			{
-				_putchar('%');
-				number++;
-			}
-			else if (*format == 'd' || *format == 'i')
-			{
-				x = va_arg(agg, int);
-				number += print_number(x);
-			}
-			else
-			{
-				_putchar('%');
-				_putchar(format[x]);
-				number += 2;
+				case 'c':
+					count += _putchar(va_arg(args, int));
+					break;
+				case 's':
+					str = va_arg(args, char *);
+					count += print_string(str);
+					break;
+				case '%':
+					count += _putchar('%');
+					break;
+				case 'd':
+				case 'i':
+				        count += print_number(va_arg(args, int));
+				        break;
+				default:
+					_putchar('%');
+					_putchar(format[x]);
+					count += 2;
+					break;
 			}
 		}
 		else
-		{
-			_putchar(*format);
-			number++;
-		}
-		format++;
+			count += _putchar(format[x]);
+		x++;
 	}
-	va_end(agg);
-	return (number);
+	va_end(args);
+	return (count);
 }
