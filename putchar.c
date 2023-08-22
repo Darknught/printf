@@ -9,8 +9,11 @@ void flush_buffer(void)
 	static char buffer[BUFF_SIZE];
 	static int buffer_index;
 
-	write(STDOUT_FILENO, buffer, buffer_index);
-	buffer_index = 0;
+	if (buffer_index >= BUFF_SIZE)
+	{
+		buffer_index = 0;
+		write(STDOUT_FILENO, buffer, buffer_index);
+	}
 }
 
 /**
