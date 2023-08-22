@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include <stdarg.h>
 /**
  * _printf - handle conversion specifiers
  * @format: conversion
@@ -16,19 +16,19 @@ int _printf(const char *format, ...)
 		if (format[x] == '%')
 		{
 			x++;
-			switch (format[x])
+			switch (format[x - 1])
 			{
 				case 'u':
-					count += _printf("%u", va_arg(args, unsigned int));
+					count += printf("%u", va_arg(args, unsigned int));
 					break;
 				case 'o':
-					count += _printf("%o", va_arg(args, unsigned int));
+					count += printf("%o", va_arg(args, unsigned int));
 					break;
 				case 'x':
-					count += _printf("%x", va_arg(args, unsigned int));
+					count += printf("%x", va_arg(args, unsigned int));
 					break;
 				case 'X':
-					count += _printf("%X", va_arg(args, unsigned int));
+					count += printf("%X", va_arg(args, unsigned int));
 					break;
 				case '%':
 					count += putchar('%');
