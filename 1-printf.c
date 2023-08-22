@@ -63,6 +63,42 @@ int print_number(int num)
 }
 
 /**
+ * print_binary - prints a binary number
+ * @num: number to print
+ * Return: number to count
+ */
+int print_binary(unsigned int num)
+{
+	unsigned int tot = 1 << (sizeof(unsigned int) * 8 - 1);
+	int count = 0, l_zeros = 1;
+
+	if (num == 0)
+	{
+		_putchar('0');
+		return (1);
+	}
+	while (tot != 0)
+	{
+		if ((num & tot) == 0)
+		{
+			if (!l_zeros)
+			{
+				_putchar('0');
+				count++;
+			}
+		}
+		else
+		{
+			_putchar('1');
+			count++;
+			l_zeros = 0;
+		}
+		tot >>= 1;
+	}
+	return (count);
+}
+
+/**
  * _printf - produces output according to format
  * @format: character format
  * Return: outputted character
@@ -72,6 +108,7 @@ int _printf(const char *format, ...)
 	int x = 0, count = 0;
 	va_list args;
 	char *str;
+	unsigned int num;
 
 	va_start(args, format);
 	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
@@ -98,6 +135,10 @@ int _printf(const char *format, ...)
 				case 'd':
 				case 'i':
 					count += print_number(va_arg(args, int));
+					break;
+				case 'b':
+					num = va_arg(args, unsigned int);
+					count += print_binary(num);
 					break;
 				default:
 					_putchar('%');

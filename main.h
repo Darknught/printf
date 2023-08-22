@@ -14,5 +14,6 @@ int _putchar(char c);
 /* FUNCTION PROTOTYPES */
 int print_string(char *str);
 int print_number(int num);
+int print_binary(unsigned int n);
 
 #endif
