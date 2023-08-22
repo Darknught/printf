@@ -21,5 +21,6 @@ int print_unsign(unsigned int num);
 int print_octal(unsigned int num);
 int print_hex(unsigned int num, int lowercase);
 void flush_buffer(void);
+int handle_write(char c);
 
 #endif
