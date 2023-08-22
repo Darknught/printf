@@ -11,7 +11,7 @@ int _printf(const char *format, ...);
 int print_unsign(unsigned int num)
 {
 	unsigned int ab = num;
-	int i, digit[20], j = 0, count = 0;
+	int i = 0, digit[20], j = 0, count = 0;
 
 	if (num == 0)
 	{
@@ -131,7 +131,7 @@ int _printf(const char *format, ...)
 					count += print_hex(num, 0);
 					break;
 				case '%':
-					count += putchar('%');
+					count += _putchar('%');
 					break;
 				default:
 					_putchar('%');
@@ -141,7 +141,7 @@ int _printf(const char *format, ...)
 			}
 		}
 		else
-			count += putchar(format[x]);
+			count += _putchar(format[x]);
 		x++;
 	}
 	va_end(args);
