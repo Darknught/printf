@@ -6,6 +6,8 @@
 #include <string.h>
 #define NULL ((void *)0)
 #define BUFF_SIZE 1024
+#define PI 3.14159
+#define UNUSED(x) (void)(x)
 
 int _printf(const char *format, ...);
 

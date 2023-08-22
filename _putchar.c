@@ -6,7 +6,8 @@
  */
 void flush_buffer(void)
 {
-	int buffer_index, buffer;
+	static char buffer[BUFF_SIZE];
+	static int buffer_index;
 
 	write(STDOUT_FILENO, buffer, buffer_index);
 	buffer_index = 0;
@@ -21,13 +22,13 @@ void flush_buffer(void)
  */
 int _putchar(char c)
 {
-	char buffer[BUFF_SIZE];
-	int buffer_index;
+	static char buffer[BUFF_SIZE];
+	static int buffer_index;
 
 	if (buffer_index >= BUFF_SIZE)
 	{
 		flush_buffer();
 	}
 	buffer[buffer_index++] = c;
-	return (1);
+	return (buffer[buffer_index]);
 }
