@@ -19,16 +19,16 @@ int _printf(const char *format, ...)
 			switch (format[x - 1])
 			{
 				case 'u':
-					count += printf("%u", va_arg(args, unsigned int));
+					count += _printf("%u", va_arg(args, unsigned int));
 					break;
 				case 'o':
-					count += printf("%o", va_arg(args, unsigned int));
+					count += _printf("%o", va_arg(args, unsigned int));
 					break;
 				case 'x':
-					count += printf("%x", va_arg(args, unsigned int));
+					count += _printf("%x", va_arg(args, unsigned int));
 					break;
 				case 'X':
-					count += printf("%X", va_arg(args, unsigned int));
+					count += _printf("%X", va_arg(args, unsigned int));
 					break;
 				case '%':
 					count += putchar('%');
