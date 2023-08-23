@@ -70,7 +70,8 @@ int print_octal(va_list arguments)
 int print_hex(va_list arguments)
 {
 	unsigned int num = va_arg(arguments, unsigned int);
-	int i = 0, j = 0, digit[20], count = 0;
+	int i = 0, j = 0, digit[20], count = 0, lowercase = 1;
+	char hex_base = lowercase ? 'a' : 'A';
 
 	if (num == 0)
 	{
@@ -88,7 +89,7 @@ int print_hex(va_list arguments)
 		if (digit[j] < 10)
 			_putchar(digit[j] + '0');
 		else
-			_putchar(digit[j] - 10 + 'a');
+			_putchar(digit[j] - 10 + hex_base);
 		count++;
 	}
 	return (count);
