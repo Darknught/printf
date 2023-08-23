@@ -128,9 +128,9 @@ int _printf(const char *format, ...)
 	int (*myfunc)(va_list);
 
 	va_start(arguments, format);
-	if (format == NULL)
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
-	while (format[x] && format[x] != '\0')
+	while (format && format[x])
 	{
 		if (format[x] == '%')
 		{
