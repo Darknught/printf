@@ -123,40 +123,32 @@ int print_binary(va_list arguments)
  */
 int _printf(const char *format, ...)
 {
-	int x = 0, count = 0;
+	int x, count = 0;
 	va_list arguments;
 	int (*myfunc)(va_list);
 
 	va_start(arguments, format);
-	for (x = 0; format[x] != '\0'; ++x)
+
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
+	for (x = 0; format && format[x]; x++)
 	{
 		if (format[x] == '%')
 		{
-			if (format[x + 1] == '%')
+			x++;
+			myfunc = get_func_func(format[x]);
+			if (myfunc)
+			{
+				count += myfunc(arguments);
+			}
+			else if (!myfunc && format[x] != '\0')
 			{
 				_putchar('%');
-				count++;
-				x++;
-			}
-			else if (format[x + 1] != '\0')
-			{
-				myfunc = get_func_func(format[x + 1]);
-				if (myfunc)
-				{
-					count += myfunc(arguments);
-					x++;
-				}
-				else
-				{
-					_putchar('%');
-					_putchar(format[x + 1]);
-					count += 2;
-					x++;
-				}
+				_putchar(format[x]);
+				count += 2;
 			}
 			else
 			{
-				va_end(arguments);
 				return (-1);
 			}
 		}

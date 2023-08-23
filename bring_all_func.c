@@ -9,6 +9,7 @@ int (*get_func_func(const char s))(va_list)
 outfunc_t myfunc[] = {
 {'c', print_char},
 {'s', print_string},
+{'%', print_percent},
 {'i', print_number},
 {'d', print_number},
 {'b', print_binary},
