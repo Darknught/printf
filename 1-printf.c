@@ -3,13 +3,30 @@
 int _printf(const char *format, ...);
 
 /**
+ * print_char - outputs a character
+ * @arguments: list containing argument of character
+ * Return: count
+ */
+int print_char(va_list arguments)
+{
+	char c;
+
+	c = va_arg(arguments, int);
+	_putchar(c);
+	return (1);
+}
+
+/**
  * print_string - prints a string
- * @str: string to print
+ * @arguments: list containing argument of string
  * Return: character
  */
-int print_string(char *str)
+int print_string(va_list arguments)
 {
+	char *str;
 	int i = 0;
+
+	str = va_arg(arguments, char *);
 
 	if (str == NULL)
 		str = "(null)";
@@ -24,51 +41,52 @@ int print_string(char *str)
 
 /**
  * print_number - prints an integer
- * @num: input integer parameter
- * Return: 0 (success)
+ * @arguments: list containing argument of numbers
+ * Return: count
  */
-int print_number(int num)
+int print_number(va_list arguments)
 {
-	unsigned int ab = num < 0 ? -num : num;
-	int j, count = 0;
+	int num = va_arg(arguments, int);
+	unsigned int ab;
+	int j, digits[20], i = 0, count = 0;
 
+	if (num == 0)
+	{
+		_putchar('0');
+		return (1);
+	}
 	if (num < 0)
 	{
 		_putchar('-');
 		count++;
-	}
-	if (ab == 0)
-	{
-		_putchar('0');
-		count++;
+		ab = (unsigned int)(-num);
 	}
 	else
 	{
-		int digits[20];
-		int i = 0;
-
-		while (ab != 0)
-		{
-			digits[i] = ab % 10;
-			ab /= 10;
-			i++;
-		}
-		for (j = i - 1; j >= 0; j--)
-		{
-			_putchar(digits[j] + '0');
-			count++;
-		}
+		ab = (unsigned int)num;
+	}
+	while (ab != 0)
+	{
+		digits[i] = ab % 10;
+		ab /= 10;
+		i++;
+	}
+	for (j = i - 1; j >= 0; j--)
+	{
+		_putchar(digits[j] + '0');
+		count++;
 	}
 	return (count);
 }
 
 /**
  * print_binary - prints a binary number
- * @num: number to print
+ * @arguments: list containing argument of binary
  * Return: number to count
  */
-int print_binary(unsigned int num)
+int print_binary(va_list arguments)
 {
+	unsigned int num = va_arg(arguments, unsigned int);
 	unsigned int tot = 1 << (sizeof(unsigned int) * 8 - 1);
 	int count = 0, l_zeros = 1;
 
@@ -106,51 +124,37 @@ int print_binary(unsigned int num)
 int _printf(const char *format, ...)
 {
 	int x = 0, count = 0;
-	va_list args;
-	char *str;
-	unsigned int num;
+	va_list arguments;
+	int (*myfunc)(va_list);
 
-	va_start(args, format);
-	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+	va_start(arguments, format);
+	if (format == NULL)
 		return (-1);
-	while (format && format[x])
+	while (format[x] && format[x] != '\0')
 	{
-		if (format[x] == '\0')
-			return (x);
 		if (format[x] == '%')
 		{
 			x++;
-			switch (format[x])
-			{
-				case 'c':
-					count += _putchar(va_arg(args, int));
-					break;
-				case 's':
-					str = va_arg(args, char *);
-					count += print_string(str);
-					break;
-				case '%':
-					count += _putchar('%');
-					break;
-				case 'd':
-				case 'i':
-					count += print_number(va_arg(args, int));
-					break;
-				case 'b':
-					num = va_arg(args, unsigned int);
-					count += print_binary(num);
-					break;
-				default:
-					_putchar('%');
-					_putchar(format[x]);
-					count += 2;
-					break;
-			}
+		myfunc = get_func_func(format[x]);
+		if (myfunc)
+		{
+			count += myfunc(arguments);
+		}
+		else if (!myfunc && format[x] != '\0')
+		{
+			_putchar('%');
+			_putchar(format[x]);
+			count += 2;
+		}
+		else
+		{
+			return (-1);
+		}
 		}
 		else
 			count += _putchar(format[x]);
 		x++;
 	}
-	va_end(args);
+	va_end(arguments);
 	return (count);
 }
