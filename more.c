@@ -33,14 +33,29 @@ int print_rest(va_list arguments)
  */
 int print_custom_string(va_list arguments)
 {
-	int i;
+	int i = 0, count = 0;
 	char *str;
+	unsigned int ch;
 
 	str = va_arg(arguments, char*);
 
-	for (i = strlen(str) - 1; i >= 0; i--)
+	ch = (unsigned char)str[i];
+
+	for (i = 0; str[i] != '\0'; i++)
 	{
-		_putchar(str[i]);
+		if (ch < 32 || ch >= 127)
+		{
+			count += 4;
+			_putchar('\\');
+			_putchar('x');
+			_putchar((ch >> 4) + '0');
+			_putchar((ch & 0xF) + '0');
+		}
+		else
+		{
+			_putchar(ch);
+			count++;
+		}
 	}
-	return (0);
+	return (count);
 }
