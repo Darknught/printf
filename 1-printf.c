@@ -1,7 +1,5 @@
 #include "main.h"
 
-int _printf(const char *format, ...);
-
 /**
  * print_char - outputs a character
  * @arguments: list containing argument of character
@@ -24,13 +22,13 @@ int print_char(va_list arguments)
 int print_string(va_list arguments)
 {
 	char *str;
-	int i = 0;
+	int i;
 
 	str = va_arg(arguments, char *);
 
 	if (str == NULL)
 		str = "(null)";
-
+	i = 0;
 	while (str[i] != '\0')
 	{
 		_putchar(str[i]);

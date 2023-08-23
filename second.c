@@ -1,7 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
 
-int _printf(const char *format, ...);
 
 /**
  * print_unsign - outputs unsigned integers
