@@ -64,7 +64,6 @@ int print_octal(va_list arguments)
 /**
  * print_hex - outputs integer in hexadecimal
  * @arguments: list containing arguments to print hexadecimal
- * @lowercase: accepts lowercase character
  * Return: count
  */
 int print_hex(va_list arguments)
