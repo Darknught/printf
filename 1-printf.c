@@ -1,5 +1,7 @@
 #include "main.h"
 
+int _printf(const char *format, ...);
+
 /**
  * print_char - outputs a character
  * @arguments: list containing argument of character
@@ -126,32 +128,43 @@ int _printf(const char *format, ...)
 	int (*myfunc)(va_list);
 
 	va_start(arguments, format);
-	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
-		return (-1);
-	while (format && format[x])
+	for (x = 0; format[x] != '\0'; ++x)
 	{
 		if (format[x] == '%')
 		{
-			x++;
-		myfunc = get_func_func(format[x]);
-		if (myfunc)
-		{
-			count += myfunc(arguments);
+			if (format[x + 1] == '%')
+			{
+				_putchar('%');
+				count++;
+				x++;
+			}
+			else if (format[x + 1] != '\0')
+			{
+				myfunc = get_func_func(format[x + 1]);
+				if (myfunc)
+				{
+					count += myfunc(arguments);
+					x++;
+				}
+				else
+				{
+					_putchar('%');
+					_putchar(format[x + 1]);
+					count += 2;
+					x++;
+				}
+			}
+			else
+			{
+				va_end(arguments);
+				return (-1);
+			}
 		}
-		else if (!myfunc && format[x] != '\0')
+		else
 		{
-			_putchar('%');
 			_putchar(format[x]);
-			count += 2;
+			count++;
 		}
-		else
-		{
-			return (-1);
-		}
-		}
-		else
-			count += _putchar(format[x]);
-		x++;
 	}
 	va_end(arguments);
 	return (count);
