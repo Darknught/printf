@@ -25,3 +25,22 @@ int print_rest(va_list arguments)
 	_putchar(b);
 	return (2);
 }
+
+/**
+ * print_custom_string - handles the %S specifier
+ * @arguments: variable argument to list
+ * Return: count
+ */
+int print_custom_string(va_list arguments)
+{
+	int i;
+	char *str;
+
+	str = va_arg(arguments, char*);
+
+	for (i = strlen(str) - 1; i >= 0; i--)
+	{
+		_putchar(str[i]);
+	}
+	return (0);
+}

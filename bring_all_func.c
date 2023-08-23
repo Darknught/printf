@@ -17,6 +17,7 @@ outfunc_t myfunc[] = {
 {'o', print_octal},
 {'x', print_hex},
 {'X', print_hex},
+{'S', print_custom_string},
 {'\0', NULL}
 };
 

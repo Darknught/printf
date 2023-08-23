@@ -41,5 +41,6 @@ int print_percent(va_list arguments);
 int print_rest(va_list arguments);
 void flush_buffer(void);
 int handle_write(char c);
+int print_custom_string(va_list arguments);
 
 #endif
